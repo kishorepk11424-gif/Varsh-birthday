@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🎁 Birthday Surprise</title>
+  <style>
+    body{background:linear-gradient(135deg,#ff8c00,#ff2d55);color:#fff;font-family:Arial, sans-serif;text-align:center;padding:60px;}
+    h1{font-size:2em;margin-bottom:10px}
+    #msg{font-size:1.2em;background:rgba(255,255,255,0.12);padding:18px;border-radius:12px;display:inline-block}
+    video{width:90%;max-width:820px;border-radius:12px;margin-top:20px;box-shadow:0 8px 30px rgba(0,0,0,0.4)}
+    #count{font-weight:700;margin-top:12px;display:block}
+  </style>
+</head>
+<body>
+  <h1>🎉 Birthday Surprise 🎉</h1>
+  <div id="msg">Checking…</div>
+  <div id="count"></div>
+
+  <video id="vid" controls style="display:none;" playsinline>
+    <source src="https://drive.google.com/uc?export=download&id=14sohJKVGyAew1Zba-yk_y6MM3ZErcb2z" type="video/mp4">
+    Your browser does not support video.
+  </video>
+
+  <script>
+    // Unlock: Dec 5 2025 00:00 (local time of viewer)
+    const unlock = new Date("2025-12-05T00:00:00");
+    const msg = document.getElementById("msg");
+    const count = document.getElementById("count");
+    const vid = document.getElementById("vid");
+
+    function update() {
+      const now = new Date();
+      if (now >= unlock) {
+        msg.style.display = "none";
+        count.style.display = "none";
+        vid.style.display = "block";
+        // try autoplay (may be blocked by browser if sound on)
+        vid.play().catch(()=>{ /* autoplay blocked: user can press play */ });
+      } else {
+        vid.style.display = "none";
+        msg.innerText = "🎊 Surprise iruku at Dec 5, 12:00 AM! 💖 Etho ennala mudinchathu 🥹";
+        const diff = Math.max(0, Math.floor((unlock - now)/1000));
+        const days = Math.floor(diff/86400);
+        const hours = Math.floor((diff%86400)/3600);
+        const mins = Math.floor((diff%3600)/60);
+        const secs = diff%60;
+        count.innerText = `Unlock in: ${days}d ${hours}h ${mins}m ${secs}s`;
+      }
+    }
+
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>
